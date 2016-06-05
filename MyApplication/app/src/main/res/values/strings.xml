@@ -1,0 +1,13 @@
+<resources>
+    <string name="app_name">恢復日記2</string>
+    <string name="action_settings">設定與資訊</string>
+    <string name="action_add_event">新增</string>
+    <string name="action_remind">提醒</string>
+
+    <string-array name="spinner_array">
+        <item>Test</item>
+        <item>Result</item>
+        <item>Event</item>
+        <item>Ranking</item>
+    </string-array>
+</resources>
