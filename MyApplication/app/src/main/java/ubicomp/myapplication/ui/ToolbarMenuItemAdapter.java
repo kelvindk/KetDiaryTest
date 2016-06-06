@@ -1,4 +1,4 @@
-package ubicomp.myapplication.toolbar;
+package ubicomp.myapplication.ui;
 
 import android.support.v4.view.MenuItemCompat;
 import android.view.Menu;
@@ -6,8 +6,6 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
-
-import org.w3c.dom.Text;
 
 import ubicomp.myapplication.MainActivity;
 import ubicomp.myapplication.R;

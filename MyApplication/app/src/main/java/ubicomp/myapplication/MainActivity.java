@@ -4,15 +4,17 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.Menu;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
+import android.widget.TextView;
 import android.widget.Toast;
 
 
-import ubicomp.myapplication.toolbar.ToolbarMenuItemAdapter;
+import ubicomp.myapplication.ui.ToolbarMenuItemAdapter;
 
 public class MainActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
@@ -21,7 +23,10 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
     public final static int SPINNER_EVENT = 2;
     public final static int SPINNER_RANKING = 3;
 
+    public final static int NUMBER_OF_TABS = 4;
+
     private Menu menu = null;
+    private TabLayout.Tab[] tabLayoutTabs = new TabLayout.Tab[NUMBER_OF_TABS];
 
 
     @Override
@@ -45,9 +50,16 @@ public class MainActivity extends AppCompatActivity implements AdapterView.OnIte
 
         // Create a TabLayout
         TabLayout tabLayout = (TabLayout) findViewById(R.id.activity_main_tabs);
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 1"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 2"));
-        tabLayout.addTab(tabLayout.newTab().setText("Tab 3"));
+
+        tabLayoutTabs[0] = tabLayout.newTab().setCustomView(R.layout.tab_icon_text_test);
+        tabLayout.addTab(tabLayoutTabs[0]);
+        tabLayoutTabs[1] = tabLayout.newTab().setCustomView(R.layout.tab_icon_text_result);
+        tabLayout.addTab(tabLayoutTabs[1]);
+        tabLayoutTabs[2] = tabLayout.newTab().setCustomView(R.layout.tab_icon_text_event);
+        tabLayout.addTab(tabLayoutTabs[2]);
+        tabLayoutTabs[3] = tabLayout.newTab().setCustomView(R.layout.tab_icon_text_ranking);
+        tabLayout.addTab(tabLayoutTabs[3]);
+
 
 
 //        FloatingActionButton fab = (FloatingActionButton) findViewById(R.id.fab);
