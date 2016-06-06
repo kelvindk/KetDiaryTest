@@ -43,8 +43,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // To pass the call for fragment switch to FragmentSwitcher.
-    public void setFragment(int fragmentToSwitch) {
-        this.fragmentSwitcher.setFragment(fragmentToSwitch);
+    public void setFragment(int fragmentToSwitch, String callerClassName) {
+        this.fragmentSwitcher.setFragment(fragmentToSwitch, callerClassName);
     }
 
 }

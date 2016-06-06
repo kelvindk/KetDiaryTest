@@ -17,7 +17,9 @@ public class TabLayoutWrapper implements TabLayout.OnTabSelectedListener {
 
     MainActivity mainActivity = null;
 
+    // Four tabs' object.
     private TabLayout.Tab[] tabLayoutTabs = new TabLayout.Tab[NUMBER_OF_TABS];
+
 
     public TabLayoutWrapper(MainActivity mainActivity) {
         this.mainActivity = mainActivity;
@@ -46,7 +48,7 @@ public class TabLayoutWrapper implements TabLayout.OnTabSelectedListener {
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         Log.d("Ket", "onTabSelected " + tab.getPosition());
-        this.mainActivity.setFragment(tab.getPosition());
+        this.mainActivity.setFragment(tab.getPosition(), "TabLayoutWrapper");
     }
 
     @Override

@@ -1,6 +1,5 @@
 package ubicomp.myapplication.ui;
 
-import android.os.Handler;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -43,18 +42,22 @@ public class FragmentSwitcher {
         fragmentManager = this.mainActivity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         fragmentTransaction.add(fragments[0], "FragmentTest");
+        Log.d("Ket", "fragment0  isAdded "+ fragments[0].isAdded());
         fragmentTransaction.add(fragments[1], "FragmentResult");
         fragmentTransaction.add(fragments[2], "FragmentEvent");
         fragmentTransaction.add(fragments[3], "FragmentRanking");
+        fragmentTransaction.replace(R.id.fragment_container, fragments[3]);
+        fragmentTransaction.replace(R.id.fragment_container, fragments[2]);
+        fragmentTransaction.replace(R.id.fragment_container, fragments[1]);
+        fragmentTransaction.replace(R.id.fragment_container, fragments[0]);
+        fragmentTransaction.commit();
 
-
-
-//
-//        Log.d("Ket", "fragment is empty "+ fragmentTransaction.isEmpty());
     }
 
+
+
     // Switch the fragment.
-    public void setFragment(int fragmentToSwitch) {
+    public void setFragment(int fragmentToSwitch, String callerClassName) {
         // Update which fragment we stay.
         this.currentFragment = fragmentToSwitch;
 
@@ -63,6 +66,15 @@ public class FragmentSwitcher {
         tabLayoutWrapper.setTabSelected(fragmentToSwitch);
         toolbarMenuItemWrapper.setSpinnerSelection(fragmentToSwitch);
 
+
+//        for(int i=0; i<fragments.length; i++) {
+//            Log.d("Ket", i+" "+fragments[i].isAdded()+" "+fragments[i].isHidden()+" "+fragments[i].isInLayout());
+//        }
+
+        // Switch fragment to selected page.
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        fragmentTransaction.replace(R.id.fragment_container, fragments[fragmentToSwitch]);
+        fragmentTransaction.commit();
 
         switch (fragmentToSwitch) {
             case FRAGMENT_TEST:
@@ -82,8 +94,7 @@ public class FragmentSwitcher {
                 break;
         }
 
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragments[fragmentToSwitch]);
-        fragmentTransaction.commit();
+
+
     }
 }

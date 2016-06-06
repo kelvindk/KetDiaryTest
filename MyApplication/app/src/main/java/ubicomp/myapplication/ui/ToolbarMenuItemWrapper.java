@@ -142,20 +142,20 @@ public class ToolbarMenuItemWrapper implements AdapterView.OnItemSelectedListene
             // Inflate the menu; this adds items to the action bar according to the selection.
             case SPINNER_TEST:
                 Log.d("Ket", "pos 0");
-                mainActivity.setFragment(FragmentSwitcher.FRAGMENT_TEST);
+                mainActivity.setFragment(FragmentSwitcher.FRAGMENT_TEST, "ToolbarMenuItemWrapper");
 
                 break;
             case SPINNER_RESULT:
                 Log.d("Ket", "pos 1");
-                mainActivity.setFragment(FragmentSwitcher.FRAGMENT_RESULT);
+                mainActivity.setFragment(FragmentSwitcher.FRAGMENT_RESULT, "ToolbarMenuItemWrapper");
                 break;
             case SPINNER_EVENT:
                 Log.d("Ket", "pos 2");
-                mainActivity.setFragment(FragmentSwitcher.FRAGMENT_EVENT);
+                mainActivity.setFragment(FragmentSwitcher.FRAGMENT_EVENT, "ToolbarMenuItemWrapper");
                 break;
             case SPINNER_RANKING:
                 Log.d("Ket", "pos 3");
-                mainActivity.setFragment(FragmentSwitcher.FRAGMENT_RANKING);
+                mainActivity.setFragment(FragmentSwitcher.FRAGMENT_RANKING, "ToolbarMenuItemWrapper");
                 break;
         }
 
