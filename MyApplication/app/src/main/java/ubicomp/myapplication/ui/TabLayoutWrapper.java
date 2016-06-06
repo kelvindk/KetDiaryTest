@@ -24,6 +24,7 @@ public class TabLayoutWrapper implements TabLayout.OnTabSelectedListener {
         // Create a TabLayout
         TabLayout tabLayout = (TabLayout) this.mainActivity.findViewById(R.id.activity_main_tabs);
 
+        // Create four tabs.
         tabLayoutTabs[0] = tabLayout.newTab().setCustomView(R.layout.tab_icon_text_test);
         tabLayout.addTab(tabLayoutTabs[0]);
         tabLayoutTabs[1] = tabLayout.newTab().setCustomView(R.layout.tab_icon_text_result);
@@ -33,6 +34,7 @@ public class TabLayoutWrapper implements TabLayout.OnTabSelectedListener {
         tabLayoutTabs[3] = tabLayout.newTab().setCustomView(R.layout.tab_icon_text_ranking);
         tabLayout.addTab(tabLayoutTabs[3]);
 
+        // Set the tab selected listener.
         tabLayout.setOnTabSelectedListener(this);
     }
 
