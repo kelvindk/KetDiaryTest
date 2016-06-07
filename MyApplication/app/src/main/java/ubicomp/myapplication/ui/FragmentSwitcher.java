@@ -26,9 +26,9 @@ public class FragmentSwitcher {
     TabLayoutWrapper tabLayoutWrapper = null;
     ToolbarMenuItemWrapper toolbarMenuItemWrapper = null;
 
+    // FragmentManager is used to manage fragment.
     FragmentManager fragmentManager = null;
-    Fragment[] fragments = {new FragmentTest(), new FragmentResult(),
-            new FragmentEvent(), new FragmentRanking()};
+    Fragment[] fragments = new Fragment[4];
     int currentFragment = 0;
 
     // Constructor received the references for fragment switch.
@@ -39,27 +39,48 @@ public class FragmentSwitcher {
         this.tabLayoutWrapper = tabLayoutWrapper;
         this.toolbarMenuItemWrapper = toolbarMenuItemWrapper;
 
+        // Create four fragment.
+        fragments[0] = new FragmentTest(this);
+        fragments[1] = new FragmentResult(this);
+        fragments[2] = new FragmentEvent(this);
+        fragments[3] = new FragmentRanking(this);
+
         fragmentManager = this.mainActivity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.add(fragments[0], "FragmentTest");
-        Log.d("Ket", "fragment0  isAdded "+ fragments[0].isAdded());
-        fragmentTransaction.add(fragments[1], "FragmentResult");
-        fragmentTransaction.add(fragments[2], "FragmentEvent");
-        fragmentTransaction.add(fragments[3], "FragmentRanking");
-        fragmentTransaction.replace(R.id.fragment_container, fragments[3]);
-        fragmentTransaction.replace(R.id.fragment_container, fragments[2]);
-        fragmentTransaction.replace(R.id.fragment_container, fragments[1]);
-        fragmentTransaction.replace(R.id.fragment_container, fragments[0]);
-        fragmentTransaction.commit();
+        fragmentTransaction.add(R.id.fragment_container, fragments[0], ""+FRAGMENT_TEST);
+        fragmentTransaction.add(R.id.fragment_container, fragments[1], ""+FRAGMENT_RESULT);
+        fragmentTransaction.add(R.id.fragment_container, fragments[2], ""+FRAGMENT_EVENT);
+        fragmentTransaction.add(R.id.fragment_container, fragments[3], ""+FRAGMENT_RANKING);
 
+        // Show FragmentTest a first page.
+        fragmentTransaction.replace(R.id.fragment_container, fragments[0]);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
+    }
+
+    public void setFragmentOnlyDowndropTab(int fragmentToSwitch) {
+        tabLayoutWrapper.setTabSelected(fragmentToSwitch);
+        toolbarMenuItemWrapper.setSpinnerSelection(fragmentToSwitch);
     }
 
 
-
     // Switch the fragment.
-    public void setFragment(int fragmentToSwitch, String callerClassName) {
-        // Update which fragment we stay.
-        this.currentFragment = fragmentToSwitch;
+    public void setFragment(int fragmentToSwitch) {
+
+        // Return if attempt to go the same fragment.
+        if(fragmentToSwitch == this.currentFragment)
+            return;
+
+        // Switch fragment to selected page.
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+//        fragmentTransaction.hide(fragments[this.currentFragment]);
+//        if(!fragments[fragmentToSwitch].isAdded())
+//            fragmentTransaction.add(R.id.fragment_container, fragments[fragmentToSwitch], ""+fragmentToSwitch);
+//        fragmentTransaction.show(fragments[fragmentToSwitch]);
+        fragmentTransaction.replace(R.id.fragment_container, fragments[fragmentToSwitch]);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.commit();
 
         // Bind tab and downdrop selection,
         // i.e., they will change together when one of them is selected.
@@ -70,11 +91,6 @@ public class FragmentSwitcher {
 //        for(int i=0; i<fragments.length; i++) {
 //            Log.d("Ket", i+" "+fragments[i].isAdded()+" "+fragments[i].isHidden()+" "+fragments[i].isInLayout());
 //        }
-
-        // Switch fragment to selected page.
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        fragmentTransaction.replace(R.id.fragment_container, fragments[fragmentToSwitch]);
-        fragmentTransaction.commit();
 
         switch (fragmentToSwitch) {
             case FRAGMENT_TEST:
@@ -95,6 +111,8 @@ public class FragmentSwitcher {
         }
 
 
+        // Update which fragment we stay.
+        this.currentFragment = fragmentToSwitch;
 
     }
 }

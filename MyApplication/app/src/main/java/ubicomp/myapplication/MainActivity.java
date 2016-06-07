@@ -1,7 +1,9 @@
 package ubicomp.myapplication;
 
 import android.os.Bundle;
+import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 
 import ubicomp.myapplication.ui.FragmentSwitcher;
@@ -35,6 +37,20 @@ public class MainActivity extends AppCompatActivity {
     }
 
     @Override
+    public void onBackPressed() {
+        /*** Bug-fix B1 ****/
+        FragmentManager fragmentManager = getSupportFragmentManager();
+
+        Log.d("Ket", "  "+fragmentManager.getBackStackEntryCount()+" "+getFragmentManager().getBackStackEntryCount());
+        if (fragmentManager.getBackStackEntryCount() > 0 ){
+            fragmentManager.popBackStack();
+        } else {
+            super.onBackPressed();
+        }
+    }
+
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Pass the reference of Menu object to ToolbarMenuItemWrapper when ready
         this.toolbarMenuItemWrapper.setMenu(menu);
@@ -43,8 +59,8 @@ public class MainActivity extends AppCompatActivity {
     }
 
     // To pass the call for fragment switch to FragmentSwitcher.
-    public void setFragment(int fragmentToSwitch, String callerClassName) {
-        this.fragmentSwitcher.setFragment(fragmentToSwitch, callerClassName);
+    public void setFragment(int fragmentToSwitch) {
+        this.fragmentSwitcher.setFragment(fragmentToSwitch);
     }
 
 }
