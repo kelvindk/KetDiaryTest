@@ -1,5 +1,6 @@
 package ubicomp.myapplication;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
@@ -14,17 +15,20 @@ public class MainActivity extends AppCompatActivity {
 
 
     // The wrapper to handle toolbar.
-    ToolbarMenuItemWrapper toolbarMenuItemWrapper = null;
+    private ToolbarMenuItemWrapper toolbarMenuItemWrapper = null;
     // The wrapper to handle tab layout.
-    TabLayoutWrapper tabLayoutWrapper = null;
+    private TabLayoutWrapper tabLayoutWrapper = null;
     // The class to manipulate fragment switch, all switching should use this class.
-    FragmentSwitcher fragmentSwitcher = null;
+    private FragmentSwitcher fragmentSwitcher = null;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // Lock screen to portrait.
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
         // New the wrapper of toolbar UI.
         toolbarMenuItemWrapper = new ToolbarMenuItemWrapper(this);

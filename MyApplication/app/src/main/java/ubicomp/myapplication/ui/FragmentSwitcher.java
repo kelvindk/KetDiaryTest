@@ -22,14 +22,14 @@ public class FragmentSwitcher {
     public final static int FRAGMENT_EVENT = 2;
     public final static int FRAGMENT_RANKING = 3;
 
-    MainActivity mainActivity = null;
-    TabLayoutWrapper tabLayoutWrapper = null;
+    private MainActivity mainActivity = null;
+    private TabLayoutWrapper tabLayoutWrapper = null;
     ToolbarMenuItemWrapper toolbarMenuItemWrapper = null;
 
     // FragmentManager is used to manage fragment.
-    FragmentManager fragmentManager = null;
-    Fragment[] fragments = new Fragment[4];
-    int currentFragment = 0;
+    private FragmentManager fragmentManager = null;
+    private Fragment[] fragments = new Fragment[4];
+    private int currentFragment = 0;
 
     // Constructor received the references for fragment switch.
     public FragmentSwitcher(MainActivity mainActivity,
@@ -42,11 +42,12 @@ public class FragmentSwitcher {
         // Create four fragment.
         fragments[0] = new FragmentTest(this);
         fragments[1] = new FragmentResult(this);
-        fragments[2] = new FragmentEvent(this);
+        fragments[2] = new FragmentEvent(this, this.mainActivity);
         fragments[3] = new FragmentRanking(this);
 
         fragmentManager = this.mainActivity.getSupportFragmentManager();
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
         fragmentTransaction.add(R.id.fragment_container, fragments[0], ""+FRAGMENT_TEST);
         fragmentTransaction.add(R.id.fragment_container, fragments[1], ""+FRAGMENT_RESULT);
         fragmentTransaction.add(R.id.fragment_container, fragments[2], ""+FRAGMENT_EVENT);
@@ -54,7 +55,8 @@ public class FragmentSwitcher {
 
         // Show FragmentTest a first page.
         fragmentTransaction.replace(R.id.fragment_container, fragments[0]);
-        fragmentTransaction.addToBackStack(null);
+        fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
     }
 
@@ -79,7 +81,7 @@ public class FragmentSwitcher {
 //        fragmentTransaction.show(fragments[fragmentToSwitch]);
         fragmentTransaction.replace(R.id.fragment_container, fragments[fragmentToSwitch]);
         fragmentTransaction.setTransition(FragmentTransaction.TRANSIT_FRAGMENT_OPEN);
-        fragmentTransaction.addToBackStack(null);
+//        fragmentTransaction.addToBackStack(null);
         fragmentTransaction.commit();
 
         // Bind tab and downdrop selection,

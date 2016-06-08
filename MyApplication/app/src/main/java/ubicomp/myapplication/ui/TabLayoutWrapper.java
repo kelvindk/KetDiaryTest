@@ -15,7 +15,7 @@ public class TabLayoutWrapper implements TabLayout.OnTabSelectedListener {
 
     public final static int NUMBER_OF_TABS = 4;
 
-    MainActivity mainActivity = null;
+    private MainActivity mainActivity = null;
 
     // Four tabs' object.
     private TabLayout.Tab[] tabLayoutTabs = new TabLayout.Tab[NUMBER_OF_TABS];

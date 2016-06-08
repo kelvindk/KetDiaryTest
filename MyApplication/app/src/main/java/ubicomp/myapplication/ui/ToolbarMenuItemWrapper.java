@@ -28,11 +28,11 @@ public class ToolbarMenuItemWrapper implements AdapterView.OnItemSelectedListene
     public final static int SPINNER_EVENT = 2;
     public final static int SPINNER_RANKING = 3;
 
-    MainActivity mainActivity = null;
-    Menu menu = null;
-    Spinner spinner_toolbar = null;
+    private MainActivity mainActivity = null;
+    private Menu menu = null;
+    private Spinner spinner_toolbar = null;
 
-    int remindBadgeCount = 95;
+    private int remindBadgeCount = 95;
 
     // Construct object,
     public ToolbarMenuItemWrapper(MainActivity mainActivity) {
@@ -85,6 +85,7 @@ public class ToolbarMenuItemWrapper implements AdapterView.OnItemSelectedListene
 
         if(menu == null)
             return;
+        // Clear menu before inflate
         menu.clear();
 
         switch (menuID) {
